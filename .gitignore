@@ -10,3 +10,6 @@
 /.vscode/
 
 .env
+
+# Volcado de la base (tiene datos reales)
+/docker/mysql-init/*.sql
