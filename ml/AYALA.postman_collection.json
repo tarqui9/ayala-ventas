@@ -1,0 +1,82 @@
+{
+  "info": {
+    "name": "AYALA - Análisis predictivo",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "laravel",
+      "value": "http://127.0.0.1:8000/api"
+    },
+    {
+      "key": "python",
+      "value": "http://127.0.0.1:8001"
+    },
+    {
+      "key": "token",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Salud Python",
+      "request": {
+        "method": "GET",
+        "url": "{{python}}/health"
+      }
+    },
+    {
+      "name": "2. Entrenar desde MySQL",
+      "request": {
+        "method": "POST",
+        "url": "{{laravel}}/analisis/entrenar",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ]
+      }
+    },
+    {
+      "name": "3. Consultar análisis en Laravel",
+      "request": {
+        "method": "GET",
+        "url": "{{laravel}}/analisis/reporte",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ]
+      }
+    },
+    {
+      "name": "4. Consultar resultado Python local",
+      "request": {
+        "method": "GET",
+        "url": "{{python}}/report"
+      }
+    }
+  ]
+}

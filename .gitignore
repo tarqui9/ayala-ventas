@@ -1,0 +1,12 @@
+# Proyectos con repo propio
+/laravel_nventas-main/
+/app ang ventas/
+
+# Notas personales (no son parte del proyecto)
+/TasksMD/
+/datos/
+/documentos/
+*.pdf
+/.vscode/
+
+.env
