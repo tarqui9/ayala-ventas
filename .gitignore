@@ -13,3 +13,9 @@
 
 # Volcado de la base (tiene datos reales)
 /docker/mysql-init/*.sql
+
+# Despliegue: secretos y copia de la base (solo locales)
+/deploy/
+
+# Notas personales
+PREGUNTAS.md

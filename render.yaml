@@ -1,0 +1,55 @@
+# Blueprint de Render: crea el backend (Laravel) y el servicio de análisis (Python).
+# En Render: New + > Blueprint > elegir este repositorio.
+# Los valores con "sync: false" los pide Render al crear (son secretos).
+services:
+  - type: web
+    name: ayala-backend
+    runtime: docker
+    repo: https://github.com/tarqui9/laravel-nventas-backend
+    branch: master
+    plan: free
+    region: oregon
+    healthCheckPath: /
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: DB_CONNECTION
+        value: mysql
+      - key: DB_DATABASE
+        value: nventas
+      # TiDB Cloud exige conexión cifrada; usa los certificados del sistema
+      - key: MYSQL_ATTR_SSL_CA
+        value: /etc/ssl/certs/ca-certificates.crt
+      - key: APP_KEY
+        sync: false
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: PASSPORT_PRIVATE_KEY
+        sync: false
+      - key: PASSPORT_PUBLIC_KEY
+        sync: false
+      - key: PREDICTIVO_URL
+        sync: false
+
+  - type: web
+    name: ayala-ml
+    runtime: python
+    rootDir: ml
+    plan: free
+    region: oregon
+    buildCommand: pip install -r requirements-lock.txt
+    startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
